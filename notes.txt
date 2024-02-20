@@ -1,0 +1,54 @@
+AUTHENTICATION- to identify person , we need AUTHENTICATION
+AUTHORIZATION- to give access right, to give role by identifying person
+JWT
+JSON Web Tokens (JWTs) are a standardized way to securely 
+send data between two parties. 
+JWT is a mechanism for verifying the authenticity of some JSON data.
+It consist of
+->header
+->payload
+->secret key
+
+JWTs (JSON Web Tokens) are a secure method for handling authentication
+and authorization in Express.js applications. The tokens contain a 
+payload, a header, and a signature. They are a good choice for 
+stateless authentication, meaning that the user’s state is not stored 
+on the server, but instead included in the token itself. This is useful 
+for scalability and for limiting the amount of server resources needed 
+for authentication.
+
+TRIM in mongoose schema
+It's basically there to ensure the strings you save
+ through the schema are properly trimmed. 
+ If you add { type: String, trim: true } to a field in your schema,
+then trying to save strings like " hello", or "hello ", or " hello ",
+ would end up being saved as "hello" in Mongo - i.e. 
+white spaces will be removed from both sides of the string.
+
+Middleware
+These are utility function for doing authentication , AUTHORIZATION.
+-> After login when we need to visit like Student portal, then we 
+get authorize through midlleware where It check our values which are 
+saved in token when we are logging.
+
+SIGN AND VERIFY JWT
+To sign and verify JSON Web Tokens (JWT), follow these steps:
+
+Sign the JWT: A JWT consists of a header, a payload, and a signature. When signing the JWT, you need a secret key. Here’s an example using Node.js and the jsonwebtoken package:
+const jwt = require('jsonwebtoken');
+const secretKey = 'your-secret-key';
+
+const payload = { userId: 123, username: 'testUser' };
+
+const token = jwt.sign(payload, secretKey, { algorithm: 'HS256' });
+
+Verify the JWT: First, you should always check the signature to make sure the token is valid. Use the same secret key and header information which was used for signing. Here’s an example using Node.js and the jsonwebtoken package:
+const jwt = require('jsonwebtoken');
+const secretKey = 'your-secret-key';
+
+try {
+  const decoded = jwt.verify(token, secretKey);
+  console.log('Token is valid');
+} catch (err) {
+  console.log('Invalid token: ', err.message);
+}
